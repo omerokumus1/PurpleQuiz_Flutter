@@ -5,7 +5,10 @@ import 'package:quizz_app/data/questions.dart';
 import 'package:quizz_app/models/quiz_question.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+  const QuestionScreen(this.quizFinishHandler, {super.key});
+
+  final void Function(Map<QuizQuestion, bool>) quizFinishHandler;
+
   @override
   State<QuestionScreen> createState() {
     return _QuestionScreenState();
@@ -22,6 +25,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
         questionIndex++;
         userAnswers[question] = question.answers.first == pickedAnswer;
       });
+    } else {
+      widget.quizFinishHandler(userAnswers);
     }
   }
 
